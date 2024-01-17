@@ -25,7 +25,8 @@
                 </div> -->
                 <!-- dropdown menu with list items -->
                 <div class="mb-3">
-                    <input type="text" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" placeholder="Genre">
+                    <!-- javascript function to display selected dropdown item -->
+                    <input id="dropdownInput" type="text" class="form-control dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" placeholder="Genre">
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Pop</a></li>
                         <li><a class="dropdown-item" href="#">Rock</a></li>
@@ -44,6 +45,11 @@
                 </div> -->
                 <!-- button to submit users input, javascript code to be linked -->
                 <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <h2 class="form-label">Results</h2>
+                <!-- placeholder for dynamic code?? -->
+                <div class="mb-3 resultForm"></div>
             </div>
         </div>
     </div>
