@@ -115,3 +115,65 @@ function displayUpcomingEvents(events) {
 
 // Event listener for the submit button
 $('.btn-primary').on('click', getRandomArtist);
+
+
+// Search history button, clear button and pop-up
+// Function to get search history from local storage
+function getSearchHistory() {
+  const searchHistoryString = localStorage.getItem('searchHistory');
+  return searchHistoryString ? JSON.parse(searchHistoryString) : [];
+}
+
+// Function to save search history to local storage
+function saveSearchHistory(searchHistory) {
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+}
+
+// Function to display search history
+function showSearchHistory() {
+  const searchHistory = getSearchHistory();
+  const searchHistoryList = document.getElementById('searchHistoryList');
+
+  searchHistoryList.innerHTML = '';
+
+  searchHistory.forEach(entry => {
+      const listItem = document.createElement('li');
+      listItem.textContent = entry;
+      searchHistoryList.appendChild(listItem);
+  });
+
+  document.getElementById('searchHistoryPopup').style.display = 'block';
+}
+
+// Function to erase search history
+function eraseSearchHistory() {
+  // Clear search history in local storage
+  saveSearchHistory([]);
+
+  // Close the popup after erasing
+  closeSearchHistoryPopup();
+}
+
+// Function to close search history popup
+function closeSearchHistoryPopup() {
+  document.getElementById('searchHistoryPopup').style.display = 'none';
+}
+
+// Function to retrieve and log the selected genre into local storage
+function submitGenre() {
+  const selectedGenre = document.getElementById('dropdownInput').value;
+  if (selectedGenre) {
+      // Retrieve existing search history from local storage
+      const searchHistory = getSearchHistory();
+
+      // Add the selected genre to the search history
+      searchHistory.push(selectedGenre);
+
+      // Save the updated search history to local storage
+      saveSearchHistory(searchHistory);
+
+  } else {
+      // Handle the case where no genre is selected
+      alert('Please select a genre before submitting.');
+  }
+}
