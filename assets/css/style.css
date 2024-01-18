@@ -22,10 +22,34 @@ body {
     color: var(--text-colour);
 }
 
+.customNav {
+    background-color: var(--button-colour)!important;
+}
+
+.customRow {
+    margin: 15px!important;
+    height: 100vh;
+    background: linear-gradient(217deg, rgba(255,0,0,0.5), rgba(255,0,0,0) 70.71%),
+            linear-gradient(127deg, rgba(0,255,0,0.5), rgba(0,255,0,0) 70.71%),
+            linear-gradient(336deg, rgba(0,0,255,0.5), rgba(0,0,255,0) 70.71%);
+    border-radius: 20px;   
+}
+
+.customLabel {
+    margin-top: 10px;
+}
+
+/* .customBack {
+    background-color: rgb(0 0 0 / 50%);
+    border-radius: 5px;
+    height: 100%;
+} */
+
 header {
     justify-content: center;
     align-items: center;
     text-align: center;
+    margin: 10px;
 }
 
 h1 {
@@ -33,14 +57,12 @@ h1 {
     font-size: 40px;
 }
 
-/* .customButton {
-    background-color: var(--button-colour);
-} */
+footer {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
-/* --- */
-
-
-/* CSS */
 .customButton {
   align-items: center;
   background-color: var(--button-colour);
