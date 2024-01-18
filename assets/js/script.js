@@ -67,23 +67,6 @@ function displayTopTenAlbums(albums) {
   resultForm.append(albumList);
 }
 
-// Function to get the upcoming events for the artist
-function getUpcomingEvents(artistName) {
-  // Make a request to the separate events API to get the upcoming events for the artist
-  let eventsApiUrl = `https://events-api.com/upcoming-events?artist=${artistName}`;
-
-  // Make a fetch request to the events API
-  $.getJSON(eventsApiUrl, function(data) {
-      // Get the upcoming events from the response
-      let upcomingEvents = data.events;
-
-      // Display the upcoming events on the webpage
-      displayUpcomingEvents(upcomingEvents);
-  }).fail(function(error) {
-      console.log('Error fetching upcoming events:', error);
-  });
-}
-
 // Function to display the top ten albums on the webpage
 function displayTopTenAlbums(albums) {
   // Display the top ten albums in the results section
