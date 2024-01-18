@@ -1,0 +1,91 @@
+/* Custom Typography */
+@font-face {
+    font-family: 'Karu-Light';
+    src: url(./custom-fonts/karu-light.otf) format("opentype");
+}
+
+@font-face {
+    font-family: 'Karu-Medium';
+    src: url(./custom-fonts/karu-medium.ttf) format("truetype");
+}
+
+:root {
+    --background-colour: #eff0f3;
+    --text-colour: #2a2a2a;
+    --button-colour: #ff8e3c;
+    --complimentary-colour: #d9376e;
+}
+
+body {
+    font-family: 'Karu-Light'!important;
+    background-color: var(--background-colour);
+    color: var(--text-colour);
+}
+
+header {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Karu-Medium';
+    font-size: 40px;
+}
+
+/* .customButton {
+    background-color: var(--button-colour);
+} */
+
+/* --- */
+
+
+/* CSS */
+.customButton {
+  align-items: center;
+  background-color: var(--button-colour);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: var(--text-colour);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.customButton:hover,
+.customButton:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  color: var(--background-colour);
+}
+
+.customButton:hover {
+  transform: translateY(-1px);
+  background-color: var(--complimentary-colour)!important;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.customButton:active {
+  background-color: var(--button-colour);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: var(--text-colour);
+  transform: translateY(0);
+}
