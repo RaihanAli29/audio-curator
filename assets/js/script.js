@@ -23,7 +23,8 @@ function getRandomArtist() {
   // Make a request to the MusicBrainz API to get a random artist based on the selected genre
   // Use the selected genre to construct the API request
   let apiUrl = `https://musicbrainz.org/ws/2/artist?query=tag:${selectedGenre}&fmt=json&limit=100`;
-
+  //Clear previous event display search
+  document.querySelector('#events').innerHTML = '';
   // Make a fetch request to the API
   fetch(apiUrl)
       .then(response => response.json())
@@ -72,16 +73,16 @@ function getTopTenAlbums(artistId) {
 }
 
 // Function to display the top ten albums on the webpage
-// function displayTopTenAlbums(albums) {
-//   // Display the top ten albums in the results section
-//   let resultForm = $('.resultForm');
-//   let albumList = '<p><strong>Top Ten Albums:</strong></p><ul>';
-//   albums.forEach(album => {
-//       albumList += `<li>${album.title}</li>`;
-//   });
-//   albumList += '</ul>';
-//   resultForm.append(albumList);
-// }
+function displayTopTenAlbums(albums) {
+  // Display the top ten albums in the results section
+  let resultForm = $('.resultForm');
+  let albumList = '<p><strong>Top Ten Albums:</strong></p><ul>';
+  albums.forEach(album => {
+      albumList += `<li>${album.title}</li>`;
+  });
+  albumList += '</ul>';
+  resultForm.append(albumList);
+}
 
 // Function to get upcoming events using the MusicBrainz API
 function getUpcomingEvents(artist) {
@@ -101,12 +102,14 @@ function getUpcomingEvents(artist) {
       });      
 }
 
-//Function to display music events is called by  
+//Function to display music events, is called by 
 function createMusicEventsList(event){
-console.log(event)
+    
     let eventsRow = document.querySelector('#events');
     eventsRow.classList.add('row');
-    // Loop to display max 10 invents from a list or any available
+    // Loop to display max 10 invents from a list or any available events
+    // Loop dynamiclly creates all the available events
+    if (event.length > 0) {
     for (let i = 0; i < Math.min(10,event.length); i++){
 
         let eventContainer = document.createElement('div');
@@ -122,11 +125,19 @@ console.log(event)
         eventDateEl.textContent = `Date of the Event: ${eventStartDate}`;
         eventVenueEl.textContent = `Venue: ${eventVenue}`;
         eventCountryEl.textContent = `Country: ${eventCountry}`;
-
+        
         eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
         eventsRow.append(eventContainer);
-        }}
+    // If there is no events, message is displayed.
+    }} else {
+        let noEventsText = 'No Events Available At The Time Of This Search.';
+        let noEventsTextEl = document.createElement('p');
+        noEventsTextEl.textContent = noEventsText;
+        eventsRow.append(noEventsTextEl);
+    }
+}
 
+// Click event to start the function
 $('.btn-primary').on('click', getRandomArtist);
 
 
