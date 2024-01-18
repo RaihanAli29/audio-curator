@@ -1,17 +1,6 @@
-// https://musicbrainz.org/ws/2/artist?query=tab:pop&fmt=json&limit:100
-
-let artistsArr = []; // link to working url to grab a list of artists or push them to the array
-
-function getRandomArtist () {
-
-    let randomArtist = Math.floor(Math.random() * artistsArr.length);
-    return randomArtist;
-}
-
-
 
 // events API to be inbeded after the event call
-function getMusicEventslist (artist) {
+function getUpcomingEvent(artist) {
 
     const musicUrlEvents =  `https://www.jambase.com/jb-api/v1/events?artistName=${artist}&apikey=eaaa6772-d2ca-4b1b-8a89-5564b5d71967`;
 
@@ -22,13 +11,37 @@ function getMusicEventslist (artist) {
     .then(function (data){
     console.log(data);
 
-    createMusicEventsList();
+    createMusicEventsList(data);
 })}
  
-getMusicEventslist('metallica');
+getUpcomingEvent('coldplay');
 // console.log(getMusicEventslist());
 // function for creating a event row and by called by event API fetch
 
-function createMusicEventsList (){
+function createMusicEventsList (event){
 
+    let eventsRow = document.querySelector('#events');
+    eventsRow.classList.add('row');
+
+    for (let i = 0; i < 10; i++){
+
+        let eventContainer = document.createElement('div');
+        eventContainer.classList.add('col-2', 'm-2', 'border', 'border-secondary-subtle');
+        let eventDateEl = document.createElement('h4');
+        let eventVenueEl = document.createElement('p');
+        let eventCountryEl = document.createElement('p');
+
+        let eventStartDate = event[i].startDate;
+        let eventType = event[i].type;
+        let eventMode = event[i].eventAttendanceMode;
+        let eventVenue = event[i].location.name;
+        let eventCountry = event[i].location.addressCountry.name;
+
+        eventDateEl.textContent = `Date of the Event: ${eventStartDate}`;
+        eventVenueEl.textContent = `Venue: ${eventVenue} (Type: ${eventType} Mode: ${eventMode}`;
+        eventCountryEl.textContent = `Country: ${eventCountry}`;
+
+        eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
+        eventsRow.append(eventContainer);
+        }
 }
