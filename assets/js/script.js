@@ -7,6 +7,14 @@ function setCurrentDay() {
 
 setCurrentDay();
 
+// function to display selected dropdown item using user input
+$(document).ready(function() {
+    $(".dropdown-item").click(function() {
+      var selectedGenre = $(this).text();
+      $("#dropdownInput").val(selectedGenre);
+    });
+  });
+
 // Function to get a random artist based on the selected genre and era
 function getRandomArtist() {
   // Get the selected genre from the dropdown
