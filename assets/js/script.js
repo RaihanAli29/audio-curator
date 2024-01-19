@@ -23,7 +23,8 @@ function getRandomArtist() {
   // Make a request to the MusicBrainz API to get a random artist based on the selected genre
   // Use the selected genre to construct the API request
   let apiUrl = `https://musicbrainz.org/ws/2/artist?query=tag:${selectedGenre}&fmt=json&limit=100`;
-
+  //Clear previous event display search
+  document.querySelector('#events').innerHTML = '';
   // Make a fetch request to the API
   fetch(apiUrl)
       .then(response => response.json())
@@ -38,11 +39,10 @@ function getRandomArtist() {
           getTopTenAlbums(randomArtist.id);
 
           // Get upcoming events after displaying the random artist
-          getUpcomingEvents();
+          getUpcomingEvents(randomArtist.name);
       })
       .catch(error => {
-          console.log('Error fetching data:', error);
-      });
+          console.log('Error fetching data:', error);});
 }
 
 // Function to display the random artist on the webpage
@@ -85,37 +85,60 @@ function displayTopTenAlbums(albums) {
 }
 
 // Function to get upcoming events using the MusicBrainz API
-function getUpcomingEvents() {
+function getUpcomingEvents(artist) {
   // Make a request to the MusicBrainz API to get upcoming events
-  let apiUrl = `https://musicbrainz.org/ws/2/event?fmt=json&limit=10`;
+  let apiUrl = `https://www.jambase.com/jb-api/v1/events?artistName=${artist}&apikey=eaaa6772-d2ca-4b1b-8a89-5564b5d71967`;
 
   // Make a fetch request to the API
   fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
           // Display the upcoming events on the webpage
-          displayUpcomingEvents(data.events);
+          console.log(data);
+          createMusicEventsList(data.events);
       })
       .catch(error => {
           console.log('Error fetching upcoming events:', error);
-      });
+      });      
 }
 
-// Function to display the upcoming events on the webpage
-function displayUpcomingEvents(events) {
-  // Display the upcoming events in the results section
-  let resultForm = $('.resultForm');
-  let eventsList = '<p><strong>Upcoming Events:</strong></p><ul>';
-  events.forEach(event => {
-      eventsList += `<li>${event.name}</li>`;
-  });
-  eventsList += '</ul>';
-  resultForm.append(eventsList);
+//Function to display music events, is called by 
+function createMusicEventsList(event){
+    
+    let eventsRow = document.querySelector('#events');
+    eventsRow.classList.add('row');
+    // Loop to display max 10 invents from a list or any available events
+    // Loop dynamiclly creates all the available events
+    if (event.length > 0) {
+    for (let i = 0; i < Math.min(10,event.length); i++){
+
+        let eventContainer = document.createElement('div');
+        eventContainer.classList.add('col-2', 'm-2');
+        let eventDateEl = document.createElement('p');
+        let eventVenueEl = document.createElement('p');
+        let eventCountryEl = document.createElement('p');
+
+        let eventStartDate = event[i].startDate;
+        let eventVenue = event[i].location.name;
+        let eventCountry = event[i].location.address.addressCountry.name;
+
+        eventDateEl.textContent = `Date of the Event: ${eventStartDate}`;
+        eventVenueEl.textContent = `Venue: ${eventVenue}`;
+        eventCountryEl.textContent = `Country: ${eventCountry}`;
+        
+        eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
+        eventsRow.append(eventContainer);
+    // If there is no events, message is displayed.
+    }} else {
+        let noEventsText = 'No Events Available At The Time Of This Search.';
+        let noEventsTextEl = document.createElement('p');
+        noEventsTextEl.textContent = noEventsText;
+        eventsRow.append(noEventsTextEl);
+    }
 }
 
-// Event listener for the submit button
+// Click event to start the function
 $('.btn-primary').on('click', getRandomArtist);
-
 
 // Search history button, clear button and pop-up
 // Function to get search history from local storage
