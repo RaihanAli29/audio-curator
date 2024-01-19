@@ -24,7 +24,7 @@
     </header>
     <div class="container-fluid " style="max-width: 1400px"></div>
         <div class="row customRow">
-            <div class="col-sm-6 mb-3 mb-sm-0 customBack">
+            <div class="col-sm-4 mb-3 mb-sm-0 customBack">
                 <h2 class="form-label customLabel">Audio Curator</h2>
                 <p>Choose your favourite genre to find new artists!</p>
                 <div class="mb-3">
@@ -53,9 +53,11 @@
                 <button type="button" class="btn btn-danger erase-button" onclick="eraseSearchHistory()">Erase History</button>
                 <button type="button" class="btn btn-secondary erase-button" onclick="closeSearchHistoryPopup()">Close</button>
             </div>
-            <div class="col-sm-6 mb-3 mb-sm-0 customBack">
+            <div class="col-sm-8 mb-3 mb-sm-0 customBack">
                 <h2 class="form-label customLabel">Results</h2>
                 <!-- placeholder for dynamic code?? -->
+                <div id="artists" class="mb-3"></div>
+                <div id="albums" class="mb-3"></div>
                 <div id="events" class="mb-3"></div>
             </div>
         </div>
