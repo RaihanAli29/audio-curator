@@ -110,10 +110,10 @@ function createMusicEventsList(event){
     // Loop to display max 10 invents from a list or any available events
     // Loop dynamiclly creates all the available events
     if (event.length > 0) {
-    for (let i = 0; i < Math.min(10,event.length); i++){
+    for (let i = 0; i < Math.min(9, event.length); i++){
 
         let eventContainer = document.createElement('div');
-        eventContainer.classList.add('col-2', 'm-2');
+        eventContainer.classList.add('col-3', 'm-2');
         let eventDateEl = document.createElement('p');
         let eventVenueEl = document.createElement('p');
         let eventCountryEl = document.createElement('p');
