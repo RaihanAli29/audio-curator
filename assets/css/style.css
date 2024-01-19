@@ -39,11 +39,23 @@ body {
     margin-top: 10px;
 }
 
-/* .customBack {
-    background-color: rgb(0 0 0 / 50%);
-    border-radius: 5px;
-    height: 100%;
-} */
+.search-history-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 20px;
+    width: fit-content;
+}
+
+.erase-button {
+    margin-top: 10px;
+}
 
 header {
     justify-content: center;
