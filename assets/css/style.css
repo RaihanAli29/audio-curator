@@ -75,6 +75,10 @@ footer {
     text-align: center;
 }
 
+.customJumbo {
+    background-image: url(/assets/images/Music\ Pictures.jpg);
+}
+
 .customButton {
   align-items: center;
   background-color: var(--button-colour);
