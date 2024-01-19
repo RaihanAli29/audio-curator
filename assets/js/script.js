@@ -130,15 +130,12 @@ function createMusicEventsList(event){
         eventsRow.append(eventContainer);
     // If there is no events, message is displayed.
     }} else {
-        let noEventsText = 'No Events Available At The Time Of This Search.';
+        let noEventsText = 'No Events Available.';
         let noEventsTextEl = document.createElement('p');
         noEventsTextEl.textContent = noEventsText;
         eventsRow.append(noEventsTextEl);
     }
 }
-
-// Click event to start the function
-$('.btn-primary').on('click', getRandomArtist);
 
 // Search history button, clear button and pop-up
 // Function to get search history from local storage
@@ -200,3 +197,6 @@ function submitGenre() {
       alert('Please select a genre before submitting.');
   }
 }
+
+// Click event to start the function
+$('.btn-primary').on('click', getRandomArtist);
