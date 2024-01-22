@@ -121,8 +121,10 @@ function createMusicEventsList(event){
         let eventStartDate = event[i].startDate;
         let eventVenue = event[i].location.name;
         let eventCountry = event[i].location.address.addressCountry.name;
+        // This variable is using day.js API to display date in a new format
+        let eventsDate = (dayjs(eventStartDate).format('MM-DD-YYYY'));
 
-        eventDateEl.textContent = `Date of the Event: ${eventStartDate}`;
+        eventDateEl.textContent = `Event Date: ${eventsDate}`;
         eventVenueEl.textContent = `Venue: ${eventVenue}`;
         eventCountryEl.textContent = `Country: ${eventCountry}`;
         
