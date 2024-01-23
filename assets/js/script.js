@@ -48,7 +48,7 @@ function getRandomArtist() {
 // Function to display the random artist on the webpage
 function displayRandomArtist(artist) {
   // Display the random artist's name in the results section
-  let resultForm = $('.resultForm');
+  let resultForm = $('#artists');
   resultForm.html(`<p><strong>Random Artist:</strong> ${artist.name}</p>`);
 }
 
@@ -75,7 +75,7 @@ function getTopTenAlbums(artistId) {
 // Function to display the top ten albums on the webpage
 function displayTopTenAlbums(albums) {
   // Display the top ten albums in the results section
-  let resultForm = $('.resultForm');
+  let resultForm = $('#albums');
   let albumList = '<p><strong>Top Ten Albums:</strong></p><ul>';
   albums.forEach(album => {
       albumList += `<li>${album.title}</li>`;
