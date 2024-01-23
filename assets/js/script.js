@@ -110,10 +110,10 @@ function createMusicEventsList(event){
     // Loop to display max 10 invents from a list or any available events
     // Loop dynamiclly creates all the available events
     if (event.length > 0) {
-    for (let i = 0; i < Math.min(10,event.length); i++){
+    for (let i = 0; i < Math.min(9, event.length); i++){
 
         let eventContainer = document.createElement('div');
-        eventContainer.classList.add('col-2', 'm-2');
+        eventContainer.classList.add('col-3', 'm-2');
         let eventDateEl = document.createElement('p');
         let eventVenueEl = document.createElement('p');
         let eventCountryEl = document.createElement('p');
@@ -130,15 +130,12 @@ function createMusicEventsList(event){
         eventsRow.append(eventContainer);
     // If there is no events, message is displayed.
     }} else {
-        let noEventsText = 'No Events Available At The Time Of This Search.';
+        let noEventsText = 'No Events Available.';
         let noEventsTextEl = document.createElement('p');
         noEventsTextEl.textContent = noEventsText;
         eventsRow.append(noEventsTextEl);
     }
 }
-
-// Click event to start the function
-$('.btn-primary').on('click', getRandomArtist);
 
 // Search history button, clear button and pop-up
 // Function to get search history from local storage
@@ -200,3 +197,6 @@ function submitGenre() {
       alert('Please select a genre before submitting.');
   }
 }
+
+// Click event to start the function
+$('.btn-primary').on('click', getRandomArtist);
