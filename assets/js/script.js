@@ -40,6 +40,8 @@ function getRandomArtist() {
 
           // Get upcoming events after displaying the random artist
           getUpcomingEvents(randomArtist.name);
+
+          submitGenre(randomArtist.name)
       })
       .catch(error => {
           console.log('Error fetching data:', error);});
@@ -47,6 +49,7 @@ function getRandomArtist() {
 
 // Function to display the random artist on the webpage
 function displayRandomArtist(artist) {
+  console.log(artist)
   // Display the random artist's name in the results section
   let resultForm = $('#artists');
   resultForm.html(`<p><strong>Random Artist:</strong> ${artist.name}</p>`);
@@ -63,7 +66,7 @@ function getTopTenAlbums(artistId) {
       .then(data => {
           // Get the top ten albums from the response
           let topTenAlbums = data.releases.slice(0, 10);
-
+          console.log(data)
           // Display the top ten albums on the webpage
           displayTopTenAlbums(topTenAlbums);
       })
@@ -182,14 +185,15 @@ function closeSearchHistoryPopup() {
 }
 
 // Function to retrieve and log the selected genre into local storage
-function submitGenre() {
-  const selectedGenre = document.getElementById('dropdownInput').value;
+function submitGenre(artist) {
+  let selectedGenre = document.getElementById('dropdownInput').value;
+  let selectedArtist = artist
   if (selectedGenre) {
       // Retrieve existing search history from local storage
       const searchHistory = getSearchHistory();
 
       // Add the selected genre to the search history
-      searchHistory.push(selectedGenre);
+      searchHistory.push(`${selectedGenre} - ${selectedArtist}`);
 
       // Save the updated search history to local storage
       saveSearchHistory(searchHistory);
