@@ -132,7 +132,10 @@ function createMusicEventsList(event){
     for (let i = 0; i < Math.min(9, event.length); i++){
 
         let eventContainer = document.createElement('div');
-        eventContainer.classList.add('col-3', 'm-1');
+        eventContainer.classList.add('col-3', 'm-1', 'event-container');
+        // Add a unique identifier to each event container
+        eventContainer.setAttribute('data-event-id', i);
+
         let eventDateEl = document.createElement('p');
         let eventVenueEl = document.createElement('p');
         let eventCountryEl = document.createElement('p');
