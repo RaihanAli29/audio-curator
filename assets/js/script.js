@@ -181,7 +181,8 @@ function showSearchHistory() {
       let listItem = document.createElement('button');
       listItem.classList.add('btn','btn-outline-secondary','col-6')
       listItem.addEventListener('click', searchHistoryArtist);
-      listItem.textContent = entry;
+      listItem.textContent = `${entry.savedArtist} - ${entry.savedGenre}`;
+      listItem.dataset.artist = entry.savedArtist;
       searchHistoryList.appendChild(listItem);
   });
 
@@ -190,7 +191,7 @@ function showSearchHistory() {
 
 function searchHistoryArtist(event){
   event.preventDefault();
-  let artistNameText = event.target.textContent;
+  let artistNameText = event.target.dataset.artist;
   //Clear previous event display search
   document.querySelector('#artists').innerHTML = '';
   document.querySelector('#albums').innerHTML = '';
@@ -236,10 +237,13 @@ function submitGenre(artist) {
   let selectedArtist = artist
   if (selectedGenre) {
       // Retrieve existing search history from local storage
-      const searchHistory = getSearchHistory();
-
+      let searchHistory = getSearchHistory();
+      let searchHistoryObj = {
+        savedArtist: selectedArtist,
+        savedGenre: selectedGenre,
+      };
       // Add the selected genre to the search history
-      searchHistory.push(`${selectedArtist} - ${selectedGenre}`);
+      searchHistory.push(searchHistoryObj);
 
       // Save the updated search history to local storage
       saveSearchHistory(searchHistory);
