@@ -46,6 +46,7 @@ Resources used to create this project:
 + API for time display: https://day.js.org/
 + HTML frame tool: https://getbootstrap.com/docs/5.3/getting-started/introduction/
 + https://developer.mozilla.org/en-US/
++ https://fullstackheroes.com/tutorials/javascript/5-ways-to-remove-duplicate-objects-from-array-based-on-property/
 
 ### License
 Please refer to the LICENSE in the repo.
