@@ -38,6 +38,9 @@ Follow these steps to see the web application in action:
 + Discover artists creating music in that genre.
 + See events that might be close by.
 
+<img width="1137" alt="Snímek obrazovky 2024-01-24 v 19 57 55" src="https://github.com/RaihanAli29/group-9/assets/139559885/ae2dd4d7-4c7d-4b35-99db-2999c8167fe5">
+
+
 ### Credits
 Resources used to create this project:
 + Bootstrap music player: https://mdbootstrap.com/docs/standard/extended/music-player/
