@@ -65,7 +65,16 @@ function displayInfo(data) {
 function displayRandomArtist(artist) {
   // Display the random artist's name in the results section
   let resultForm = $('#artists');
-  resultForm.html(`<p><strong>Random Artist:</strong> ${artist}</p>`);
+
+  // Create a header for the random artist
+  let artistHeader = $('<h4>').text('Random Artist');
+
+  // Create a paragraph to display the artist's name
+  let artistParagraph = $('<p>').html(`<strong>${artist}</strong>`);
+
+  // Append the header and artist paragraph to the resultForm
+  resultForm.html(artistHeader);
+  resultForm.append(artistParagraph);
 }
 
 // Function to get the top ten albums of the random artist
@@ -92,12 +101,21 @@ function getTopTenAlbums(artistId) {
 function displayTopTenAlbums(albums) {
   // Display the top ten albums in the results section
   let resultForm = $('#albums');
-  let albumList = '<p><strong>Top Ten Albums:</strong></p><ul>';
+  
+  // Create a header for the top albums
+  let albumsHeader = $('<h4>').text('Top Ten Albums');
+  
+  // Create an unordered list to list the albums
+  let albumList = $('<ul>');
+  
+  // Populate the list with albums
   albums.forEach(album => {
-      albumList += `<li>${album.title}</li>`;
+      let albumListItem = $('<li>').text(album.title);
+      albumList.append(albumListItem);
   });
-  albumList += '</ul>';
-  resultForm.append(albumList);
+  
+  // Append the header and album list to the resultForm
+  resultForm.append(albumsHeader, albumList);
 }
 
 // Function to get upcoming events using the MusicBrainz API
@@ -129,6 +147,11 @@ function createMusicEventsList(event){
     // Loop to display max 10 invents from a list or any available events
     // Loop dynamiclly creates all the available events
     if (event.length > 0) {
+    // Create a header for the events
+    let eventsHeader = document.createElement('h4');
+    eventsHeader.textContent = 'Upcoming Events';
+    eventsRow.append(eventsHeader);
+
     for (let i = 0; i < Math.min(9, event.length); i++){
 
         let eventContainer = document.createElement('div');
