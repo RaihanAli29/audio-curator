@@ -21,11 +21,11 @@ This project presents a real-world situation. I was tasked with creating a JavaS
 > SO THAT I don't have to be bored listening to the same songs.
 
 ### Acceptance Criteria
-> 1. 
-> 2. 
-> 3. 
-> 4. 
-> 5. 
+> 1. Use Bootstrap.
+> 2. Deploy to the GitHub Pages.
+> 3. Make it interactive.
+> 4. Use at least two API's.
+> 5. Use client-side storage to store persistent data.
 
 ### Installation
 N/A
