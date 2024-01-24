@@ -16,43 +16,54 @@ $(document).ready(function() {
   });
 
 // Function to get a random artist based on the selected genre and era
-function getRandomArtist() {
+function getRandomArtist(event) {
+
+  event.preventDefault();
   // Get the selected genre from the dropdown
   let selectedGenre = $('#dropdownInput').val();
 
   // Make a request to the MusicBrainz API to get a random artist based on the selected genre
   // Use the selected genre to construct the API request
   let apiUrl = `https://musicbrainz.org/ws/2/artist?query=tag:${selectedGenre}&fmt=json&limit=100`;
-  //Clear previous event display search
-  document.querySelector('#events').innerHTML = '';
+  
   // Make a fetch request to the API
   fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-          // Get a random artist from the response
-          let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
 
-          // Display the random artist on the webpage
-          displayRandomArtist(randomArtist);
-
-          // Call the getTopTenAlbums function to fetch and display the top ten albums
-          getTopTenAlbums(randomArtist.id);
-
-          // Get upcoming events after displaying the random artist
-          getUpcomingEvents(randomArtist.name);
-
-          submitGenre(randomArtist.name)
+        displayInfo(data);
+          
       })
       .catch(error => {
           console.log('Error fetching data:', error);});
 }
 
+function displayInfo(data) {
+
+  //Clear previous event display search
+  document.querySelector('#events').innerHTML = '';
+  document.querySelector('#artists').innerHTML = '';
+  document.querySelector('#albums').innerHTML = '';
+  // Get a random artist from the response
+  let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
+
+  // Display the random artist on the webpage
+  displayRandomArtist(randomArtist.name);
+
+  // Call the getTopTenAlbums function to fetch and display the top ten albums
+  getTopTenAlbums(randomArtist.id);
+
+  // Get upcoming events after displaying the random artist
+  getUpcomingEvents(randomArtist.name);
+
+  submitGenre(randomArtist.name)
+}
+
 // Function to display the random artist on the webpage
 function displayRandomArtist(artist) {
-  console.log(artist)
   // Display the random artist's name in the results section
   let resultForm = $('#artists');
-  resultForm.html(`<p><strong>Random Artist:</strong> ${artist.name}</p>`);
+  resultForm.html(`<p><strong>Random Artist:</strong> ${artist}</p>`);
 }
 
 // Function to get the top ten albums of the random artist
@@ -162,7 +173,9 @@ function showSearchHistory() {
   searchHistoryList.innerHTML = '';
 
   searchHistory.forEach(entry => {
-      const listItem = document.createElement('li');
+      const listItem = document.createElement('button');
+      listItem.classList.add('btn','btn-outline-secondary','col-6')
+      listItem.addEventListener('click', searchHistoryArtist);
       listItem.textContent = entry;
       searchHistoryList.appendChild(listItem);
   });
@@ -170,6 +183,11 @@ function showSearchHistory() {
   document.getElementById('searchHistoryPopup').style.display = 'block';
 }
 
+function searchHistoryArtist(event){
+  event.preventDefault();
+  let artistNameText = event.target.textContent;
+  displayInfo();
+}
 // Function to erase search history
 function eraseSearchHistory() {
   // Clear search history in local storage
@@ -193,16 +211,17 @@ function submitGenre(artist) {
       const searchHistory = getSearchHistory();
 
       // Add the selected genre to the search history
-      searchHistory.push(`${selectedGenre} - ${selectedArtist}`);
+      searchHistory.push(`${selectedArtist} - ${selectedGenre}`);
 
       // Save the updated search history to local storage
       saveSearchHistory(searchHistory);
 
-  } else {
-      // Handle the case where no genre is selected
-      alert('Please select a genre before submitting.');
   }
+  //  else {
+//       // Handle the case where no genre is selected
+//       alert('Please select a genre before submitting.');
+//   }
 }
 
 // Click event to start the function
-$('.btn-primary').on('click', getRandomArtist);
+$('#submit-btn').on('click', getRandomArtist);
