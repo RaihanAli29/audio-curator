@@ -34,8 +34,9 @@ function getRandomArtist(event) {
   fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-
-        displayInfo(data);
+        // Get a random artist from the response
+        let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
+        displayInfo(randomArtist);
           
       })
       .catch(error => {
@@ -45,22 +46,19 @@ function getRandomArtist(event) {
 function displayInfo(data) {
 
   //Clear previous event display search
-  document.querySelector('#events').innerHTML = '';
   document.querySelector('#artists').innerHTML = '';
   document.querySelector('#albums').innerHTML = '';
-  // Get a random artist from the response
-  let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
-
+  
   // Display the random artist on the webpage
-  displayRandomArtist(randomArtist.name);
+  displayRandomArtist(data.name);
 
   // Call the getTopTenAlbums function to fetch and display the top ten albums
-  getTopTenAlbums(randomArtist.id);
+  getTopTenAlbums(data.id);
 
   // Get upcoming events after displaying the random artist
-  getUpcomingEvents(randomArtist.name);
+  getUpcomingEvents(data.name);
 
-  submitGenre(randomArtist.name)
+  submitGenre(data.name)
 }
 
 // Function to display the random artist on the webpage
@@ -125,6 +123,8 @@ function createMusicEventsList(event){
     
     let eventsRow = document.querySelector('#events');
     eventsRow.classList.add('row');
+
+    document.querySelector('#events').innerHTML = '';
     // Loop to display max 10 invents from a list or any available events
     // Loop dynamiclly creates all the available events
     if (event.length > 0) {
@@ -177,7 +177,7 @@ function showSearchHistory() {
   searchHistoryList.innerHTML = '';
 
   searchHistory.forEach(entry => {
-      const listItem = document.createElement('button');
+      let listItem = document.createElement('button');
       listItem.classList.add('btn','btn-outline-secondary','col-6')
       listItem.addEventListener('click', searchHistoryArtist);
       listItem.textContent = entry;
@@ -190,8 +190,31 @@ function showSearchHistory() {
 function searchHistoryArtist(event){
   event.preventDefault();
   let artistNameText = event.target.textContent;
-  displayInfo();
+  //Clear previous event display search
+  document.querySelector('#artists').innerHTML = '';
+  document.querySelector('#albums').innerHTML = '';
+  // Display the random artist on the webpage
+  displayRandomArtist(artistNameText);
+
+  // Call the getTopTenAlbums function to fetch and display the top ten albums
+  let apiUrl = `https://musicbrainz.org/ws/2/artist/?query=artist:${artistNameText}&fmt=json`;
+  // Make a fetch request to the API
+  fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Get a random artist from the response
+        console.log(data)
+        getTopTenAlbums(data.artists[0].id);
+      })
+      .catch(error => {
+          console.log('Error fetching data:', error);});
+
+  // Get upcoming events after displaying the random artist
+  getUpcomingEvents(artistNameText);
+
+  submitGenre(artistNameText)
 }
+
 // Function to erase search history
 function eraseSearchHistory() {
   // Clear search history in local storage
@@ -221,10 +244,6 @@ function submitGenre(artist) {
       saveSearchHistory(searchHistory);
 
   }
-  //  else {
-//       // Handle the case where no genre is selected
-//       alert('Please select a genre before submitting.');
-//   }
 }
 
 // Click event to start the function
