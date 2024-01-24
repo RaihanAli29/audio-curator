@@ -22,6 +22,10 @@ function getRandomArtist(event) {
   // Get the selected genre from the dropdown
   let selectedGenre = $('#dropdownInput').val();
 
+  if (selectedGenre === ''){
+    return;
+  }
+
   // Make a request to the MusicBrainz API to get a random artist based on the selected genre
   // Use the selected genre to construct the API request
   let apiUrl = `https://musicbrainz.org/ws/2/artist?query=tag:${selectedGenre}&fmt=json&limit=100`;
