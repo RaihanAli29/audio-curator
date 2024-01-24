@@ -125,7 +125,7 @@ function createMusicEventsList(event){
     eventsRow.classList.add('row');
 
     document.querySelector('#events').innerHTML = '';
-    
+
     // Loop to display max 10 invents from a list or any available events
     // Loop dynamiclly creates all the available events
     if (event.length > 0) {
@@ -213,7 +213,7 @@ function searchHistoryArtist(event){
   // Get upcoming events after displaying the random artist
   getUpcomingEvents(artistNameText);
 
-  submitGenre(artistNameText)
+  closeSearchHistoryPopup();
 }
 
 // Function to erase search history
@@ -249,6 +249,7 @@ function submitGenre(artist) {
 
 // Click event to start the function
 $('#submit-btn').on('click', getRandomArtist);
+
 $('#dropdownInput').on('keypress', function(event) {
   if (event.which === 13) {
       getRandomArtist();
