@@ -236,7 +236,7 @@ function showSearchHistory() {
       listItem.addEventListener('click', searchHistoryArtist);
       listItem.textContent = `${entry.savedArtist} - ${entry.savedGenre}`;
       listItem.dataset.artist = entry.savedArtist;
-      searchHistoryList.appendChild(listFixedItem);
+      searchHistoryList.appendChild(listItem);
   });
 
   document.getElementById('searchHistoryPopup').style.display = 'block';
