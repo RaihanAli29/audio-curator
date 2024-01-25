@@ -14,7 +14,7 @@ This project presents a real-world situation. I was tasked with creating a JavaS
     - [Installation](#installation)
     - [Usage](#usage)
     - [Credits](#credits)
-      - [Colabolaors](#colabolaors)
+      - [Colabolators](#colabolaors)
     - [License](#license)
 
 ### User Story
