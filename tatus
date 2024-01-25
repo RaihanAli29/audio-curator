@@ -1,0 +1,186 @@
+[33mcommit bb1fcb60285248611ffcb2684da7b145b85a9a92[m[33m ([m[1;36mHEAD -> [m[1;32mfeature-Display-Artist[m[33m, [m[1;32mAPI-fetch[m[33m)[m
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 23:33:51 2024 +0000
+
+    Added comments and small changes
+
+[33mcommit 11f9faa1998a7ba620f79cf60e78e7656cf27a77[m
+Merge: c18aae6 f29f3b2
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 23:10:33 2024 +0000
+
+    Added event display and fetch
+
+[33mcommit c18aae63e1aef66940ef0dab1b2f33f1b75ff185[m
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 20:52:18 2024 +0000
+
+    Added events fetch and generate event row
+
+[33mcommit f29f3b2314eb0cae123db8ee7a2b17b8b0b83dfd[m
+Merge: 118715d c54af65
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Thu Jan 18 20:04:21 2024 +0000
+
+    Merge pull request #6 from RaihanAli29/feature/custom-css2
+    
+    gradient background
+
+[33mcommit c54af65a6d6bced886c719bed0f8d8025536e058[m[33m ([m[1;31morigin/feature/custom-css2[m[33m)[m
+Merge: 4aa30c0 118715d
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Thu Jan 18 20:04:12 2024 +0000
+
+    Merge branch 'main' into feature/custom-css2
+
+[33mcommit 4aa30c09acdafb54f696651d36ca1100c272d6e1[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Thu Jan 18 19:57:22 2024 +0000
+
+    gradient background
+
+[33mcommit 118715d68b8ddafd845f3c1a50af61d5aa845c13[m
+Merge: dc4d812 b3f95c6
+Author: Pawel <149010349+Narkhashel@users.noreply.github.com>
+Date:   Thu Jan 18 19:16:49 2024 +0000
+
+    Merge pull request #4 from RaihanAli29/artist-info
+    
+    Artist Information
+
+[33mcommit b3f95c65d32b2b6c6ee5da90e9f993f5406927f6[m[33m ([m[1;31morigin/artist-info[m[33m, [m[1;32martist-info[m[33m)[m
+Merge: 84d0ffb aacce54
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 19:11:08 2024 +0000
+
+    Merge branch 'artist-info' of https://github.com/RaihanAli29/group-9 into artist-info
+
+[33mcommit 84d0ffb3abae52e81335b327998598fdf63b438d[m
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 19:09:39 2024 +0000
+
+    Updating js file with dopdown function
+
+[33mcommit 29119a53d6b18d94d96635e8cebaf2390d37b226[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 18:24:31 2024 +0000
+
+    Using fetch for consistency
+
+[33mcommit 8c5d96cdec3d0bd61730475402fc2e72e4925275[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 17:05:00 2024 +0000
+
+    Added Album Info
+
+[33mcommit f79f1652ceddd7d904b45b64f2ab39405eea76ac[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 10:42:44 2024 +0000
+
+    Artist Information
+    
+    Created functions to pull Artist and Album Info
+
+[33mcommit dc4d81257a456ebc7d9f6566ea662a4152ede9f1[m[33m ([m[1;32mmain[m[33m)[m
+Merge: a516ff6 b4d2dbe
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Thu Jan 18 19:03:43 2024 +0000
+
+    Merge pull request #5 from RaihanAli29/feature/custom-css
+    
+    custom button style, custom typography
+
+[33mcommit f759a791d798fed3a02b93a3a77046d47c45201d[m
+Author: Pawel <pochmarek@gmail.com>
+Date:   Thu Jan 18 19:03:30 2024 +0000
+
+    added random artist function and API events fetch
+
+[33mcommit b4d2dbef956116806049563689d51fcb51522023[m[33m ([m[1;31morigin/feature/custom-css[m[33m)[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Thu Jan 18 19:02:19 2024 +0000
+
+    custom button style, custom typography
+
+[33mcommit aacce544e5a74a5473cb948e7dc61920490f9202[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 18:24:31 2024 +0000
+
+    Using fetch for consistency
+
+[33mcommit 230a01c71d2b145aef07d317f032f13c4976b3ca[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 17:05:00 2024 +0000
+
+    Added Album Info
+
+[33mcommit d1e16f89ad7dcf63e534d1203380987dab6c3b17[m
+Author: RaihanAli29 <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Thu Jan 18 10:42:44 2024 +0000
+
+    Artist Information
+    
+    Created functions to pull Artist and Album Info
+
+[33mcommit a516ff6670ab551df7ab83dcc3fa26889139f507[m
+Merge: ab489d3 b097040
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 19:39:49 2024 +0000
+
+    Merge pull request #3 from RaihanAli29/feature/day.js
+    
+    Feature/day.js
+
+[33mcommit b09704083a06dd55544393a9aa625cf29a6e1175[m[33m ([m[1;31morigin/feature/day.js[m[33m)[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 19:38:11 2024 +0000
+
+    jQuery function to display dropdown items
+
+[33mcommit bb971549fcd78c24b76c77c25e37ae4fce26e594[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 19:26:38 2024 +0000
+
+    adding day.js api/function
+
+[33mcommit ab489d3e450692de894c3dff3e234ad9d60aca42[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 19:18:45 2024 +0000
+
+    id's updated, comments added
+
+[33mcommit efdc2e7611651554d0902ce81f5138dbecb64652[m
+Merge: 7b24735 f2f199b
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 18:51:41 2024 +0000
+
+    Merge pull request #2 from RaihanAli29/html-skeleton
+    
+    html sceleton, no id yet
+
+[33mcommit f2f199b72244e588bd7eff63e3fdb2e51c6466f8[m[33m ([m[1;31morigin/html-skeleton[m[33m)[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Wed Jan 17 18:50:05 2024 +0000
+
+    html sceleton, no id yet
+
+[33mcommit 7b247358e8fd44586e7e4fbb008c62842938a3ff[m
+Merge: f5b1b1d d32f6b6
+Author: Klára Volfová <139559885+volfovaklara@users.noreply.github.com>
+Date:   Tue Jan 16 21:47:00 2024 +0000
+
+    Merge pull request #1 from RaihanAli29/starter-files
+    
+    starter files, html basic structure, reset css
+
+[33mcommit d32f6b61f4972594f860a141e910a7c1a79d3c0f[m[33m ([m[1;31morigin/starter-files[m[33m)[m
+Author: volfovaklara <139559885+volfovaklara@users.noreply.github.com>
+Date:   Tue Jan 16 21:43:02 2024 +0000
+
+    starter files, html basic structure, reset css
+
+[33mcommit f5b1b1dffed972cb03aa18ec4c906615e0410566[m
+Author: Raihan Ali <149912064+RaihanAli29@users.noreply.github.com>
+Date:   Tue Jan 16 19:15:51 2024 +0000
+
+    Initial commit

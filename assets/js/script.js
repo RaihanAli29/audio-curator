@@ -15,39 +15,66 @@ $(document).ready(function () {
   });
 });
 
-// Function to fetch and display a random artist
-function getRandomArtist() {
-  const selectedGenre = $('#dropdownInput').val();
+// Function to get a random artist based on the selected genre and era
+function getRandomArtist(event) {
+
+  // event.preventDefault();
+  // Get the selected genre from the dropdown
+  let selectedGenre = $('#dropdownInput').val();
+
+  if (selectedGenre === ''){
+    return;
+  }
 
   // Make a request to the MusicBrainz API to get a random artist based on the selected genre
   // Use the selected genre to construct the API request
   let apiUrl = `https://musicbrainz.org/ws/2/artist?query=tag:${selectedGenre}&fmt=json&limit=100`;
-  //Clear previous event display search
-  document.querySelector('#events').innerHTML = '';
+  
   // Make a fetch request to the API
   fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-      // Get a random artist from the response
-      let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
+      .then(response => response.json())
+      .then(data => {
+        // Get a random artist from the response
+        let randomArtist = data.artists[Math.floor(Math.random() * data.artists.length)];
+        displayInfo(randomArtist);
+          
+      })
+      .catch(error => {
+          console.log('Error fetching data:', error);});
+}
 
-      // Display the random artist on the webpage
-      displayRandomArtist(randomArtist);
+function displayInfo(data) {
 
-      // Call the getTopTenAlbums function to fetch and display the top ten albums
-      getTopTenAlbums(randomArtist.id);
+  //Clear previous event display search
+  document.querySelector('#artists').innerHTML = '';
+  document.querySelector('#albums').innerHTML = '';
+  
+  // Display the random artist on the webpage
+  displayRandomArtist(data.name);
 
-      // Get upcoming events after displaying the random artist
-      getUpcomingEvents(randomArtist.name);
-    })
-    .catch(error => {
-      console.log('Error fetching data:', error);
-    });
+  // Call the getTopTenAlbums function to fetch and display the top ten albums
+  getTopTenAlbums(data.id);
+
+  // Get upcoming events after displaying the random artist
+  getUpcomingEvents(data.name);
+
+  submitGenre(data.name)
 }
 
 // Function to display the random artist on the webpage
 function displayRandomArtist(artist) {
-  $('#artists').html(`<p><strong>Random Artist:</strong> ${artist.name}</p>`);
+  // Display the random artist's name in the results section
+  let resultForm = $('#artists');
+
+  // Create a header for the random artist
+  let artistHeader = $('<h4>').text('Random Artist');
+
+  // Create a paragraph to display the artist's name
+  let artistParagraph = $('<p>').html(`<strong>${artist}</strong>`);
+
+  // Append the header and artist paragraph to the resultForm
+  resultForm.html(artistHeader);
+  resultForm.append(artistParagraph);
 }
 
 // Function to fetch and display the top ten albums of the random artist
@@ -55,32 +82,67 @@ function getTopTenAlbums(artistId) {
   const apiUrl = `https://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json&limit=10`;
 
   fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      const uniqueAlbums = filterUniqueAlbums(data.releases.slice(0, 10));
-      displayTopTenAlbums(uniqueAlbums);
-    })
-    .catch(error => console.error('Error fetching album data:', error));
+      .then(response => response.json())
+      .then(data => {
+          // Get the top ten albums from the response
+          let topTenAlbums = data.releases.slice(0, 10);
+          console.log(data)
+          // Display the top ten albums on the webpage
+          displayTopTenAlbums(topTenAlbums);
+      })
+      .catch(error => {
+          console.log('Error fetching album data:', error);
+      });
 }
 
 // Function to filter out duplicate album names
-function filterUniqueAlbums(albums) {
-  const uniqueAlbums = albums.filter((album, index, self) =>
-    index === self.findIndex((a) => a.title === album.title)
-  );
-  return uniqueAlbums;
+function filterDuplicateAlbums(albums) {
+  // Use a Set to keep track of unique album names
+  const uniqueAlbums = new Set();
+
+  // Use filter to create a new array with unique albums
+  const filteredAlbums = albums.filter(album => {
+      // Convert album title to lowercase for case-insensitive comparison
+      const albumName = album.title.toLowerCase();
+
+      // Check if the album name is not in the set (not a duplicate)
+      if (!uniqueAlbums.has(albumName)) {
+          // Add the album name to the set
+          uniqueAlbums.add(albumName);
+
+          // Return true to keep the album in the filtered array
+          return true;
+      }
+
+      // Return false to exclude duplicate albums
+      return false;
+  });
+
+  return filteredAlbums;
 }
 
 // Function to display the top ten albums on the webpage
 function displayTopTenAlbums(albums) {
-  $('#albums').html('<p><strong>Top Ten Albums:</strong></p><ul>' +
-    albums.map(album => `<li>${album.title}</li>`).join('') +
-    '</ul>');
+  // Filter out duplicate album names
+  const uniqueAlbums = filterDuplicateAlbums(albums);
+
+  // Display the top ten albums in the results section
+  let resultForm = $('#albums');
+  
+  // Create a header for the top albums
+  let albumsHeader = $('<h4>').text('Top Ten Albums');
+  
+  // Create an unordered list to list the albums
+  let albumList = $('<ul>');
+  
+  // Populate the list with albums
+  uniqueAlbums.forEach(album => {
+      let albumListItem = $('<li>').text(album.title);
+      albumList.append(albumListItem);
+  });
+  
+  // Append the header and album list to the resultForm
+  resultForm.append(albumsHeader, albumList);
 }
 
 
@@ -101,45 +163,55 @@ function getUpcomingEvents(artist) {
     });
 }
 
-// Function to display music events, is called by
-function createMusicEventsList(event) {
+//Function to display music events, is called by 
+function createMusicEventsList(event){
+    
+  let eventsRow = document.querySelector('#events');
+  eventsRow.classList.add('row');
 
-  let eventsRow = $('#events');
-  eventsRow.empty();
-  eventsRow.addClass('row');
-  // Loop to display max 10 events from a list or any available events
-  // Loop dynamically creates all the available events
+  document.querySelector('#events').innerHTML = '';
+
+  // Loop to display max 10 invents from a list or any available events
+  // Loop dynamiclly creates all the available events
   if (event.length > 0) {
-    for (let i = 0; i < Math.min(10, event.length); i++) {
+  // Create a header for the events
+  let eventsHeader = document.createElement('h4');
+  eventsHeader.textContent = 'Upcoming Events';
+  eventsRow.append(eventsHeader);
 
-      let eventContainer = $('<div>').addClass('col-2 m-2');
-      let eventDateEl = $('<p>');
-      let eventVenueEl = $('<p>');
-      let eventCountryEl = $('<p>');
+  for (let i = 0; i < Math.min(9, event.length); i++){
+
+      let eventContainer = document.createElement('div');
+      eventContainer.classList.add('col-3', 'm-1', 'event-container');
+      // Add a unique identifier to each event container
+      eventContainer.setAttribute('data-event-id', i);
+
+      let eventDateEl = document.createElement('p');
+      let eventVenueEl = document.createElement('p');
+      let eventCountryEl = document.createElement('p');
 
       let eventStartDate = event[i].startDate;
       let eventVenue = event[i].location.name;
       let eventCountry = event[i].location.address.addressCountry.name;
+      // This variable is using day.js API to display date in a new format
+      let eventsDate = (dayjs(eventStartDate).format('MM-DD-YYYY'));
 
-      eventDateEl.text(`Date of the Event: ${eventStartDate}`);
-      eventVenueEl.text(`Venue: ${eventVenue}`);
-      eventCountryEl.text(`Country: ${eventCountry}`);
-
+      eventDateEl.textContent = `Event Date: ${eventsDate}`;
+      eventVenueEl.textContent = `Venue: ${eventVenue}`;
+      eventCountryEl.textContent = `Country: ${eventCountry}`;
+      
       eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
       eventsRow.append(eventContainer);
-    }
-    // If there are no events, a message is displayed.
-  } else {
-    let noEventsText = 'No Events Available At The Time Of This Search.';
-    let noEventsTextEl = $('<p>').text(noEventsText);
-    eventsRow.append(noEventsTextEl);
+  // If there is no events, message is displayed.
+  }} else {
+      let noEventsText = 'No Events Available.';
+      let noEventsTextEl = document.createElement('p');
+      noEventsTextEl.textContent = noEventsText;
+      eventsRow.append(noEventsTextEl);
   }
 }
 
-// Click event to start the function
-$('.customButton').on('click', getRandomArtist);
-
-// Search history button, clear button, and pop-up
+// Search history button, clear button and pop-up
 // Function to get search history from local storage
 function getSearchHistory() {
   const searchHistoryString = localStorage.getItem('searchHistory');
@@ -159,11 +231,43 @@ function showSearchHistory() {
   searchHistoryList.empty();
 
   searchHistory.forEach(entry => {
-    const listItem = $('<li>').text(entry);
-    searchHistoryList.append(listItem);
+      let listItem = document.createElement('button');
+      listItem.classList.add('btn','btn-outline-secondary','col-6')
+      listItem.addEventListener('click', searchHistoryArtist);
+      listItem.textContent = `${entry.savedArtist} - ${entry.savedGenre}`;
+      listItem.dataset.artist = entry.savedArtist;
+      searchHistoryList.appendChild(listItem);
   });
 
   $('#searchHistoryPopup').css('display', 'block');
+}
+
+function searchHistoryArtist(event){
+  event.preventDefault();
+  let artistNameText = event.target.dataset.artist;
+  //Clear previous event display search
+  document.querySelector('#artists').innerHTML = '';
+  document.querySelector('#albums').innerHTML = '';
+  // Display the random artist on the webpage
+  displayRandomArtist(artistNameText);
+
+  // Call the getTopTenAlbums function to fetch and display the top ten albums
+  let apiUrl = `https://musicbrainz.org/ws/2/artist/?query=artist:${artistNameText}&fmt=json`;
+  // Make a fetch request to the API
+  fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Get a random artist from the response
+        console.log(data)
+        getTopTenAlbums(data.artists[0].id);
+      })
+      .catch(error => {
+          console.log('Error fetching data:', error);});
+
+  // Get upcoming events after displaying the random artist
+  getUpcomingEvents(artistNameText);
+
+  closeSearchHistoryPopup();
 }
 
 // Function to erase search history
@@ -181,20 +285,30 @@ function closeSearchHistoryPopup() {
 }
 
 // Function to retrieve and log the selected genre into local storage
-function submitGenre() {
-  const selectedGenre = $('#dropdownInput').val();
+function submitGenre(artist) {
+  let selectedGenre = document.getElementById('dropdownInput').value;
+  let selectedArtist = artist
   if (selectedGenre) {
-    // Retrieve existing search history from local storage
-    const searchHistory = getSearchHistory();
-
-    // Add the selected genre to the search history
-    searchHistory.push(selectedGenre);
+      // Retrieve existing search history from local storage
+      let searchHistory = getSearchHistory();
+      let searchHistoryObj = {
+        savedArtist: selectedArtist,
+        savedGenre: selectedGenre,
+      };
+      // Add the selected genre to the search history
+      searchHistory.push(searchHistoryObj);
 
     // Save the updated search history to local storage
     saveSearchHistory(searchHistory);
 
-  } else {
-    // Handle the case where no genre is selected
-    alert('Please select a genre before submitting.');
   }
 }
+
+// Click event to start the function
+$('#submit-btn').on('click', getRandomArtist);
+
+$('#dropdownInput').on('keypress', function(event) {
+  if (event.which === 13) {
+      getRandomArtist();
+  }
+});
