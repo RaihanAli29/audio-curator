@@ -8,12 +8,12 @@ function setCurrentDay() {
 setCurrentDay();
 
 // function to display selected dropdown item using user input
-$(document).ready(function() {
-    $(".dropdown-item").click(function() {
-      var selectedGenre = $(this).text();
-      $("#dropdownInput").val(selectedGenre);
-    });
+$(document).ready(function () {
+  $(".dropdown-item").click(function () {
+    var selectedGenre = $(this).text();
+    $("#dropdownInput").val(selectedGenre);
   });
+});
 
 // Function to get a random artist based on the selected genre and era
 function getRandomArtist(event) {
@@ -77,12 +77,10 @@ function displayRandomArtist(artist) {
   resultForm.append(artistParagraph);
 }
 
-// Function to get the top ten albums of the random artist
+// Function to fetch and display the top ten albums of the random artist
 function getTopTenAlbums(artistId) {
-  // Make a request to the MusicBrainz API to get the albums of the selected artist
-  let apiUrl = `https://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json&limit=10`;
+  const apiUrl = `https://musicbrainz.org/ws/2/release?artist=${artistId}&fmt=json&limit=10`;
 
-  // Make a fetch request to the API
   fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
@@ -97,8 +95,37 @@ function getTopTenAlbums(artistId) {
       });
 }
 
+// Function to filter out duplicate album names
+function filterDuplicateAlbums(albums) {
+  // Use a Set to keep track of unique album names
+  const uniqueAlbums = new Set();
+
+  // Use filter to create a new array with unique albums
+  const filteredAlbums = albums.filter(album => {
+      // Convert album title to lowercase for case-insensitive comparison
+      const albumName = album.title.toLowerCase();
+
+      // Check if the album name is not in the set (not a duplicate)
+      if (!uniqueAlbums.has(albumName)) {
+          // Add the album name to the set
+          uniqueAlbums.add(albumName);
+
+          // Return true to keep the album in the filtered array
+          return true;
+      }
+
+      // Return false to exclude duplicate albums
+      return false;
+  });
+
+  return filteredAlbums;
+}
+
 // Function to display the top ten albums on the webpage
 function displayTopTenAlbums(albums) {
+  // Filter out duplicate album names
+  const uniqueAlbums = filterDuplicateAlbums(albums);
+
   // Display the top ten albums in the results section
   let resultForm = $('#albums');
   
@@ -109,7 +136,7 @@ function displayTopTenAlbums(albums) {
   let albumList = $('<ul>');
   
   // Populate the list with albums
-  albums.forEach(album => {
+  uniqueAlbums.forEach(album => {
       let albumListItem = $('<li>').text(album.title);
       albumList.append(albumListItem);
   });
@@ -118,70 +145,70 @@ function displayTopTenAlbums(albums) {
   resultForm.append(albumsHeader, albumList);
 }
 
+
 // Function to get upcoming events using the MusicBrainz API
 function getUpcomingEvents(artist) {
   // Make a request to the MusicBrainz API to get upcoming events
   let apiUrl = `https://www.jambase.com/jb-api/v1/events?artistName=${artist}&apikey=eaaa6772-d2ca-4b1b-8a89-5564b5d71967`;
 
-  // Make a fetch request to the API
   fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-          // Display the upcoming events on the webpage
-          console.log(data);
-          createMusicEventsList(data.events);
-      })
-      .catch(error => {
-          console.log('Error fetching upcoming events:', error);
-      });      
+    .then(response => response.json())
+    .then(data => {
+      // Display the upcoming events on the webpage
+      console.log(data);
+      createMusicEventsList(data.events);
+    })
+    .catch(error => {
+      console.log('Error fetching upcoming events:', error);
+    });
 }
 
 //Function to display music events, is called by 
 function createMusicEventsList(event){
     
-    let eventsRow = document.querySelector('#events');
-    eventsRow.classList.add('row');
+  let eventsRow = document.querySelector('#events');
+  eventsRow.classList.add('row');
 
-    document.querySelector('#events').innerHTML = '';
+  document.querySelector('#events').innerHTML = '';
 
-    // Loop to display max 10 invents from a list or any available events
-    // Loop dynamiclly creates all the available events
-    if (event.length > 0) {
-    // Create a header for the events
-    let eventsHeader = document.createElement('h4');
-    eventsHeader.textContent = 'Upcoming Events';
-    eventsRow.append(eventsHeader);
+  // Loop to display max 10 invents from a list or any available events
+  // Loop dynamiclly creates all the available events
+  if (event.length > 0) {
+  // Create a header for the events
+  let eventsHeader = document.createElement('h4');
+  eventsHeader.textContent = 'Upcoming Events';
+  eventsRow.append(eventsHeader);
 
-    for (let i = 0; i < Math.min(9, event.length); i++){
+  for (let i = 0; i < Math.min(9, event.length); i++){
 
-        let eventContainer = document.createElement('div');
-        eventContainer.classList.add('col-3', 'm-1', 'event-container');
-        // Add a unique identifier to each event container
-        eventContainer.setAttribute('data-event-id', i);
+      let eventContainer = document.createElement('div');
+      eventContainer.classList.add('col-3', 'm-1', 'event-container');
+      // Add a unique identifier to each event container
+      eventContainer.setAttribute('data-event-id', i);
 
-        let eventDateEl = document.createElement('p');
-        let eventVenueEl = document.createElement('p');
-        let eventCountryEl = document.createElement('p');
+      let eventDateEl = document.createElement('p');
+      let eventVenueEl = document.createElement('p');
+      let eventCountryEl = document.createElement('p');
 
-        let eventStartDate = event[i].startDate;
-        let eventVenue = event[i].location.name;
-        let eventCountry = event[i].location.address.addressCountry.name;
-        // This variable is using day.js API to display date in a new format
-        let eventsDate = (dayjs(eventStartDate).format('MM-DD-YYYY'));
+      let eventStartDate = event[i].startDate;
+      let eventVenue = event[i].location.name;
+      let eventCountry = event[i].location.address.addressCountry.name;
+      // This variable is using day.js API to display date in a new format
+      let eventsDate = (dayjs(eventStartDate).format('MM-DD-YYYY'));
 
-        eventDateEl.textContent = `Event Date: ${eventsDate}`;
-        eventVenueEl.textContent = `Venue: ${eventVenue}`;
-        eventCountryEl.textContent = `Country: ${eventCountry}`;
-        
-        eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
-        eventsRow.append(eventContainer);
-    // If there is no events, message is displayed.
-    }} else {
-        let noEventsText = 'No Events Available.';
-        let noEventsTextEl = document.createElement('p');
-        noEventsTextEl.textContent = noEventsText;
-        eventsRow.append(noEventsTextEl);
-    }
+      eventDateEl.textContent = `Event Date: ${eventsDate}`;
+      eventVenueEl.textContent = `Venue: ${eventVenue}`;
+      eventCountryEl.textContent = `Country: ${eventCountry}`;
+      
+      eventContainer.append(eventDateEl, eventVenueEl, eventCountryEl);
+      eventsRow.append(eventContainer);
+  // If there is no events, message is displayed.
+  }} else {
+      let noEventsText = 'No Events Available.';
+      let noEventsTextEl = document.createElement('p');
+      noEventsTextEl.textContent = noEventsText;
+      eventsRow.append(noEventsTextEl);
+  }
 }
 
 // Search history button, clear button and pop-up
@@ -199,9 +226,9 @@ function saveSearchHistory(searchHistory) {
 // Function to display search history
 function showSearchHistory() {
   const searchHistory = getSearchHistory();
-  const searchHistoryList = document.getElementById('searchHistoryList');
+  const searchHistoryList = $('#searchHistoryList');
 
-  searchHistoryList.innerHTML = '';
+  searchHistoryList.empty();
 
   searchHistory.forEach(entry => {
       let listItem = document.createElement('button');
@@ -212,7 +239,7 @@ function showSearchHistory() {
       searchHistoryList.appendChild(listItem);
   });
 
-  document.getElementById('searchHistoryPopup').style.display = 'block';
+  $('#searchHistoryPopup').css('display', 'block');
 }
 
 function searchHistoryArtist(event){
@@ -254,7 +281,7 @@ function eraseSearchHistory() {
 
 // Function to close search history popup
 function closeSearchHistoryPopup() {
-  document.getElementById('searchHistoryPopup').style.display = 'none';
+  $('#searchHistoryPopup').css('display', 'none');
 }
 
 // Function to retrieve and log the selected genre into local storage
@@ -271,8 +298,8 @@ function submitGenre(artist) {
       // Add the selected genre to the search history
       searchHistory.push(searchHistoryObj);
 
-      // Save the updated search history to local storage
-      saveSearchHistory(searchHistory);
+    // Save the updated search history to local storage
+    saveSearchHistory(searchHistory);
 
   }
 }
