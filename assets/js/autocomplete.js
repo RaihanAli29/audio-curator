@@ -1896,7 +1896,8 @@ const inputElement = document.querySelector('#dropdownInput');
 const listElement = document.querySelector('#dropdown-menu');
 
 // Event listener for input changes
-inputElement.addEventListener('input', function() {
+inputElement.addEventListener('input', function(event) {
+    event.preventDefault();
     const inputText = this.value.toLowerCase();
     const filteredSuggestions = genreList.filter(suggestion =>
         suggestion.toLowerCase().startsWith(inputText)
