@@ -3,15 +3,19 @@
 ### Description
 This project presents a real-world situation. I was tasked with creating a JavaScript code for analysing the financial records of a company. I've been provided with a financial dataset.
 
-[Deployed Application]
+[Audio Curator](https://raihanali29.github.io/group-9/) - deployed application.
 
 ### Table of Contents
-* [User Story](#user-story) 
-* [Acceptance Criteria](#acceptance-criteria)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Credits](#credits)
-* [License](#license)
+- [Audio Curator](#audio-curator)
+    - [Description](#description)
+    - [Table of Contents](#table-of-contents)
+    - [User Story](#user-story)
+    - [Acceptance Criteria](#acceptance-criteria)
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [Credits](#credits)
+      - [Colabolaors](#colabolaors)
+    - [License](#license)
 
 ### User Story
 > AS A music lover
@@ -50,6 +54,13 @@ Resources used to create this project:
 + HTML frame tool: https://getbootstrap.com/docs/5.3/getting-started/introduction/
 + https://developer.mozilla.org/en-US/
 + https://fullstackheroes.com/tutorials/javascript/5-ways-to-remove-duplicate-objects-from-array-based-on-property/
+
+#### Colabolaors
+
+All those lovely people who worked together on this project:
++ [Raihan Ali](https://github.com/RaihanAli29)
++ [Klára Volfová](https://github.com/volfovaklara)
++ [Pawel Pochmara](https://github.com/Narkhashel)
 
 ### License
 Please refer to the LICENSE in the repo.
