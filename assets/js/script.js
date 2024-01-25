@@ -226,9 +226,9 @@ function saveSearchHistory(searchHistory) {
 // Function to display search history
 function showSearchHistory() {
   const searchHistory = getSearchHistory();
-  const searchHistoryList = $('#searchHistoryList');
+  const searchHistoryList = document.getElementById('searchHistoryList');
 
-  searchHistoryList.empty();
+  searchHistoryList.innerHTML = '';
 
   searchHistory.forEach(entry => {
       let listItem = document.createElement('button');
@@ -236,10 +236,10 @@ function showSearchHistory() {
       listItem.addEventListener('click', searchHistoryArtist);
       listItem.textContent = `${entry.savedArtist} - ${entry.savedGenre}`;
       listItem.dataset.artist = entry.savedArtist;
-      searchHistoryList.appendChild(listItem);
+      searchHistoryList.appendChild(listFixedItem);
   });
 
-  $('#searchHistoryPopup').css('display', 'block');
+  document.getElementById('searchHistoryPopup').style.display = 'block';
 }
 
 function searchHistoryArtist(event){
